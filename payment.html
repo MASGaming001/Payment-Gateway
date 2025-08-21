@@ -3,61 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment Page</title>
+  <title>Payment</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
+      background: linear-gradient(to right, #f1f8e9, #e0f7fa);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
-
     .container {
       background: #fff;
       padding: 30px;
       border-radius: 12px;
       text-align: center;
       box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 90%;
+      animation: fadeIn 1s ease-in-out;
     }
-
     h1 {
-      font-size: 24px;
       color: #333;
-      margin-bottom: 15px;
     }
-
-    p {
-      font-size: 16px;
-      color: #555;
-      margin: 8px 0;
-    }
-
-    .amount {
-      font-size: 20px;
-      font-weight: bold;
-      color: #e53935;
-      margin-bottom: 15px;
-    }
-
-    .qr {
-      margin: 20px 0;
-    }
-
-    .qr img {
-      width: 200px;
-      border-radius: 8px;
-    }
-
     .btn {
       display: inline-block;
-      margin: 10px 5px;
-      padding: 12px 18px;
+      margin-top: 15px;
+      padding: 12px 20px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -65,67 +36,51 @@
       text-decoration: none;
       transition: 0.3s;
       color: #fff;
-    }
-
-    .btn-pay {
       background: #4caf50;
     }
-
-    .btn-pay:hover {
+    .btn:hover {
       background: #388e3c;
     }
-
-    .btn-whatsapp {
-      background: #25d366;
+    .old-price {
+      text-decoration: line-through;
+      color: red;
+      margin-right: 8px;
     }
-
-    .btn-whatsapp:hover {
-      background: #1ebc57;
+    .new-price {
+      font-weight: bold;
+      color: green;
     }
-
-    .btn-telegram {
-      background: #0088cc;
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
     }
-
-    .btn-telegram:hover {
-      background: #0077b5;
-    }
-
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Complete Your Payment</h1>
-    <p>Selected Plan Amount:</p>
-    <p class="amount" id="planAmount">₹0</p>
-
-    <div class="qr">
-      <img src="qr-code.png" alt="UPI QR Code">
-    </div>
-
-    <p>UPI ID: <b>yourupi@upi</b></p>
-    <p>After payment, please share the screenshot for verification.</p>
-
-    <!-- WhatsApp Button -->
-    <a class="btn btn-whatsapp" href="https://wa.me/919673840469?text=Hi%2C%20I%20have%20completed%20the%20payment.%20Here%20is%20my%20screenshot." target="_blank">
-      📩 Send Screenshot on WhatsApp
-    </a>
-
-    <!-- Telegram Button -->
-    <a class="btn btn-telegram" href="https://t.me/+HgkA3SvtkqA1MzRl" target="_blank">
-      📲 Request to Join Telegram Group
-    </a>
-
-    <br>
-    <a class="btn btn-pay" href="success.html">✅ I Have Paid</a>
+    <h1 id="planTitle">Payment</h1>
+    <p id="planPrice"></p>
+    <p>Scan the QR or click below to pay via UPI:</p>
+    <a id="upiLink" class="btn" href="#">Pay with UPI App</a>
+    <br><br>
+    <a class="btn" href="success.html">I Have Paid</a>
   </div>
 
   <script>
-    // Get plan amount from query param
-    const params = new URLSearchParams(window.location.search);
-    const amount = params.get("amount");
-    if (amount) {
-      document.getElementById("planAmount").innerText = "₹" + amount;
+    const urlParams = new URLSearchParams(window.location.search);
+    const plan = urlParams.get("plan");
+    const planTitle = document.getElementById("planTitle");
+    const planPrice = document.getElementById("planPrice");
+    const upiLink = document.getElementById("upiLink");
+
+    if (plan === "1month") {
+      planTitle.innerText = "1 Month Plan";
+      planPrice.innerHTML = "<span class='old-price'>₹6000</span> <span class='new-price'>₹5000</span>";
+      upiLink.href = "upi://pay?pa=yourupi@upi&pn=YourName&am=5000&cu=INR";
+    } else if (plan === "3months") {
+      planTitle.innerText = "3 Months Plan";
+      planPrice.innerHTML = "<span class='old-price'>₹18000</span> <span class='new-price'>₹12500</span>";
+      upiLink.href = "upi://pay?pa=yourupi@upi&pn=YourName&am=12500&cu=INR";
     }
   </script>
 </body>

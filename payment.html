@@ -87,7 +87,7 @@
 
     <h3>UPI Payment Details</h3>
     <p><strong>Name:</strong> Megh Savla</p>
-    <p><strong>UPI ID:</strong> meghsavla09@okhdfc</p>
+    <p><strong>UPI ID:</strong> meghsavla09@okhdfcbank</p>
 
     <!-- QR Code -->
     <img id="qrImg" src="" alt="UPI QR Code">
@@ -124,7 +124,7 @@
     }
 
     // Generate QR code dynamically
-    const upiData = `upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&am=${amount}&cu=INR`;
+    const upiData = `upi://pay?pa=meghsavla09@okhdfcbank&pn=Megh%20Savla&am=${amount}&cu=INR`;
     qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiData)}`;
 
     // Open UPI app on mobile when clicked

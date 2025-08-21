@@ -90,41 +90,47 @@
     <p><strong>UPI ID:</strong> meghsavla09@okhdfc</p>
 
     <!-- QR Code -->
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&cu=INR&am=5000" alt="UPI QR Code">
+    <img id="qrImg" src="" alt="UPI QR Code">
 
     <!-- Open UPI App button -->
-    <a id="upiLink" class="btn btn-upi" href="#">📲 Pay with UPI App</a>
+    <button id="upiBtn" class="btn btn-upi">📲 Pay with UPI App</button>
 
     <br>
     <a class="btn btn-home" href="index.html">🏠 Back to Home</a>
   </div>
 
   <script>
-    // Get plan details from URL
     const params = new URLSearchParams(window.location.search);
     const plan = params.get("plan");
 
     const planName = document.getElementById("planName");
     const planPrice = document.getElementById("planPrice");
     const oldPrice = document.getElementById("oldPrice");
-    const qrCode = document.querySelector("img");
-    const upiLink = document.getElementById("upiLink");
+    const qrCode = document.getElementById("qrImg");
+    const upiBtn = document.getElementById("upiBtn");
+
+    let amount = 0;
 
     if (plan === "1month") {
       planName.textContent = "1 Month Plan";
       planPrice.textContent = "5000";
       oldPrice.textContent = "₹6000";
-
-      qrCode.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&cu=INR&am=5000";
-      upiLink.href = "upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&am=5000&cu=INR";
+      amount = 5000;
     } else if (plan === "3months") {
       planName.textContent = "3 Months Plan";
       planPrice.textContent = "12500";
       oldPrice.textContent = "₹18000";
-
-      qrCode.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&cu=INR&am=12500";
-      upiLink.href = "upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&am=12500&cu=INR";
+      amount = 12500;
     }
+
+    // Generate QR code dynamically
+    const upiData = `upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&am=${amount}&cu=INR`;
+    qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiData)}`;
+
+    // Open UPI app on mobile when clicked
+    upiBtn.addEventListener("click", () => {
+      window.location.href = upiData;
+    });
   </script>
 </body>
 </html>

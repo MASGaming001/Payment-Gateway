@@ -60,6 +60,11 @@
 
     .btn-telegram {
       background: #0088cc;
+      display: none; /* hidden at start */
+    }
+
+    .btn-telegram.show {
+      display: inline-block;
     }
 
     .btn-telegram:hover {
@@ -82,17 +87,26 @@
     <p>Thank you for your payment. Please verify your payment to get group access.</p>
 
     <!-- WhatsApp Button -->
-    <a class="btn btn-whatsapp" href="https://wa.me/919673840469?text=Hi%2C%20I%20have%20completed%20the%20payment.%20Here%20is%20my%20screenshot." target="_blank">
+    <a class="btn btn-whatsapp" id="whatsappBtn" href="https://wa.me/919673840469?text=Hi%2C%20I%20have%20completed%20the%20payment.%20Here%20is%20my%20screenshot." target="_blank">
       📩 Send Screenshot on WhatsApp
     </a>
 
-    <!-- Telegram Button -->
-    <a class="btn btn-telegram" href="https://t.me/+HgkA3SvtkqA1MzRl" target="_blank">
+    <!-- Telegram Button (hidden initially) -->
+    <a class="btn btn-telegram" id="telegramBtn" href="https://t.me/+HgkA3SvtkqA1MzRl" target="_blank">
       📲 Join Telegram Group
     </a>
 
     <br>
     <a class="btn btn-home" href="index.html">🏠 Back to Home</a>
   </div>
+
+  <script>
+    // Show Telegram button only after WhatsApp button is clicked
+    document.getElementById("whatsappBtn").addEventListener("click", function() {
+      setTimeout(() => {
+        document.getElementById("telegramBtn").classList.add("show");
+      }, 1500); // delay so user actually opens WhatsApp first
+    });
+  </script>
 </body>
 </html>

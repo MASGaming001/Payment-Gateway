@@ -3,84 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Select Plan</title>
+  <title>Select Plan - Payment</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
       margin: 0;
       padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #dfe9f3, #ffffff);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      text-align: center;
     }
     .container {
-      background: white;
+      background: #fff;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
       animation: fadeIn 1s ease-in-out;
     }
     h1 {
-      margin-bottom: 20px;
+      font-size: 28px;
       color: #333;
+      margin-bottom: 20px;
     }
     .plan {
-      margin: 15px 0;
+      margin: 20px 0;
       padding: 15px;
-      border-radius: 8px;
-      background: #f9f9f9;
+      border: 2px solid #eee;
+      border-radius: 10px;
       transition: transform 0.3s;
     }
     .plan:hover {
       transform: scale(1.05);
-      background: #f1f1f1;
+      border-color: #4caf50;
+    }
+    .price {
+      font-size: 20px;
+      color: #4caf50;
+      font-weight: bold;
     }
     .old-price {
+      font-size: 16px;
+      color: #999;
       text-decoration: line-through;
-      color: red;
       margin-right: 8px;
-    }
-    .new-price {
-      font-weight: bold;
-      color: green;
     }
     .btn {
       display: inline-block;
       margin-top: 10px;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 15px;
-      text-decoration: none;
-      transition: 0.3s;
-      color: #fff;
+      padding: 10px 20px;
       background: #4caf50;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s;
     }
     .btn:hover {
       background: #388e3c;
     }
     @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-10px);}
-      to {opacity: 1; transform: translateY(0);}
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Choose Your Subscription Plan</h1>
+    <h1>Choose Your Plan</h1>
 
     <div class="plan">
-      <p><span class="old-price">₹6000</span> <span class="new-price">₹5000</span> for 1 Month</p>
-      <a class="btn" href="payment.html?plan=1month">Select Plan</a>
+      <p><span class="old-price">₹6000</span> <span class="price">₹5000</span> / 1 Month</p>
+      <a class="btn" href="payment.html?plan=1month">Select</a>
     </div>
 
     <div class="plan">
-      <p><span class="old-price">₹18000</span> <span class="new-price">₹12500</span> for 3 Months</p>
-      <a class="btn" href="payment.html?plan=3months">Select Plan</a>
+      <p><span class="old-price">₹18000</span> <span class="price">₹12500</span> / 3 Months</p>
+      <a class="btn" href="payment.html?plan=3months">Select</a>
     </div>
   </div>
 </body>

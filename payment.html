@@ -7,45 +7,41 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #eef2f3, #ffffff);
+      background: linear-gradient(to right, #f0f8ff, #e6f7ff);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
     }
+
     .container {
       background: #fff;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
       text-align: center;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
       max-width: 450px;
+      width: 90%;
     }
+
     h1 {
-      font-size: 24px;
+      font-size: 26px;
       color: #333;
+      margin-bottom: 15px;
     }
-    .price {
-      font-size: 20px;
-      font-weight: bold;
-      color: #4caf50;
-      margin: 10px 0;
-    }
-    .old-price {
-      font-size: 16px;
-      color: #999;
-      text-decoration: line-through;
-      margin-right: 8px;
-    }
-    .upi {
-      margin-top: 15px;
+
+    p {
       font-size: 16px;
       color: #555;
+      margin: 8px 0;
     }
-    .qr {
-      margin: 20px 0;
+
+    .highlight {
+      font-weight: bold;
+      color: #4caf50;
     }
+
     .btn {
       display: inline-block;
       margin: 10px 5px;
@@ -57,44 +53,78 @@
       text-decoration: none;
       transition: 0.3s;
       color: #fff;
+    }
+
+    .btn-home {
       background: #4caf50;
     }
-    .btn:hover {
+    .btn-home:hover {
       background: #388e3c;
+    }
+
+    .btn-upi {
+      background: #ff9800;
+    }
+    .btn-upi:hover {
+      background: #e68900;
+    }
+
+    img {
+      margin: 15px 0;
+      width: 180px;
+      height: 180px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Complete Your Payment</h1>
-    <p id="planText"></p>
-    <div class="upi">
-      <p><b>Pay to UPI ID:</b> meghsavla09@okhdfcbank</p>
-      <p><b>Name:</b> Megh Savla</p>
-    </div>
-    <div class="qr">
-      <img id="qrCode" src="" alt="UPI QR Code" width="200">
-    </div>
-    <a class="btn" href="success.html">I Have Paid</a>
+    <p><span class="highlight">Plan:</span> <span id="planName"></span></p>
+    <p><span class="highlight">Discounted Price:</span> ₹<span id="planPrice"></span></p>
+    <p><span class="highlight">Original Price:</span> <del id="oldPrice"></del></p>
+
+    <h3>UPI Payment Details</h3>
+    <p><strong>Name:</strong> Megh Savla</p>
+    <p><strong>UPI ID:</strong> meghsavla09@okhdfc</p>
+
+    <!-- QR Code -->
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&cu=INR&am=5000" alt="UPI QR Code">
+
+    <!-- Open UPI App button -->
+    <a id="upiLink" class="btn btn-upi" href="#">📲 Pay with UPI App</a>
+
+    <br>
+    <a class="btn btn-home" href="index.html">🏠 Back to Home</a>
   </div>
 
   <script>
+    // Get plan details from URL
     const params = new URLSearchParams(window.location.search);
     const plan = params.get("plan");
-    const planText = document.getElementById("planText");
-    const qrCode = document.getElementById("qrCode");
-    let upiLink = "";
+
+    const planName = document.getElementById("planName");
+    const planPrice = document.getElementById("planPrice");
+    const oldPrice = document.getElementById("oldPrice");
+    const qrCode = document.querySelector("img");
+    const upiLink = document.getElementById("upiLink");
 
     if (plan === "1month") {
-      planText.innerHTML = `<span class="old-price">₹6000</span> <span class="price">₹5000</span> / 1 Month`;
-      upiLink = `upi://pay?pa=meghsavla09@okhdfcbank&pn=Megh%20Savla&am=5000&cu=INR`;
-    } else if (plan === "3months") {
-      planText.innerHTML = `<span class="old-price">₹18000</span> <span class="price">₹12500</span> / 3 Months`;
-      upiLink = `upi://pay?pa=meghsavla09@okhdfcbank&pn=Megh%20Savla&am=12500&cu=INR`;
-    }
+      planName.textContent = "1 Month Plan";
+      planPrice.textContent = "5000";
+      oldPrice.textContent = "₹6000";
 
-    // Generate QR code using API
-    qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(upiLink)}&size=200x200`;
+      qrCode.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&cu=INR&am=5000";
+      upiLink.href = "upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&am=5000&cu=INR";
+    } else if (plan === "3months") {
+      planName.textContent = "3 Months Plan";
+      planPrice.textContent = "12500";
+      oldPrice.textContent = "₹18000";
+
+      qrCode.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&cu=INR&am=12500";
+      upiLink.href = "upi://pay?pa=meghsavla09@okhdfc&pn=Megh%20Savla&am=12500&cu=INR";
+    }
   </script>
 </body>
 </html>

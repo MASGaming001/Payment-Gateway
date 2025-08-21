@@ -3,140 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Select a Plan</title>
+  <title>Select Plan</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #e0f7fa, #ffffff);
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
       margin: 0;
       padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .container {
       text-align: center;
     }
-
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
     h1 {
       margin-bottom: 20px;
-      font-size: 32px;
       color: #333;
-      animation: slideDown 0.8s ease-in-out;
     }
-
-    @keyframes slideDown {
-      from { transform: translateY(-50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .plans {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
     .plan {
-      background: #ffffff;
-      padding: 25px;
-      border-radius: 15px;
-      width: 250px;
-      box-shadow: 0px 6px 15px rgba(0,0,0,0.15);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: popUp 0.8s ease-in-out;
+      margin: 15px 0;
+      padding: 15px;
+      border-radius: 8px;
+      background: #f9f9f9;
+      transition: transform 0.3s;
     }
-
-    @keyframes popUp {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
     .plan:hover {
       transform: scale(1.05);
-      box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+      background: #f1f1f1;
     }
-
-    .plan h2 {
-      font-size: 22px;
-      color: #00796b;
-    }
-
     .old-price {
       text-decoration: line-through;
-      color: #888;
-      font-size: 16px;
+      color: red;
+      margin-right: 8px;
     }
-
-    .price {
-      font-size: 22px;
-      color: #e53935;
+    .new-price {
       font-weight: bold;
+      color: green;
     }
-
-    .discount {
-      color: #2ecc71;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 16px;
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 20px;
       border: none;
-      border-radius: 25px;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 15px;
+      text-decoration: none;
+      transition: 0.3s;
+      color: #fff;
       background: #4caf50;
-      color: white;
-      transition: background 0.3s ease, transform 0.3s ease;
     }
-
-    button:hover {
+    .btn:hover {
       background: #388e3c;
-      transform: scale(1.05);
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Choose Your Subscription Plan</h1>
-    <div class="plans">
-      
-      <!-- 1 Month Plan -->
-      <div class="plan">
-        <h2>1 Month</h2>
-        <p class="old-price">₹6,000</p>
-        <p class="price">₹5,000</p>
-        <p class="discount">Save 17%</p>
-        <button onclick="selectPlan('5000')">Select</button>
-      </div>
 
-      <!-- 3 Months Plan -->
-      <div class="plan">
-        <h2>3 Months</h2>
-        <p class="old-price">₹18,000</p>
-        <p class="price">₹12,500</p>
-        <p class="discount">Save 31%</p>
-        <button onclick="selectPlan('12500')">Select</button>
-      </div>
+    <div class="plan">
+      <p><span class="old-price">₹6000</span> <span class="new-price">₹5000</span> for 1 Month</p>
+      <a class="btn" href="payment.html?plan=1month">Select Plan</a>
+    </div>
 
+    <div class="plan">
+      <p><span class="old-price">₹18000</span> <span class="new-price">₹12500</span> for 3 Months</p>
+      <a class="btn" href="payment.html?plan=3months">Select Plan</a>
     </div>
   </div>
-
-  <script>
-    function selectPlan(amount) {
-      // Redirect to payment.html with selected plan amount
-      window.location.href = "payment.html?amount=" + amount;
-    }
-  </script>
 </body>
 </html>

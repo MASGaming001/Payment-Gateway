@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment</title>
+  <title>Payment Page</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #f1f8e9, #e0f7fa);
+      background: linear-gradient(to right, #eef2f3, #ffffff);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,17 +18,38 @@
       background: #fff;
       padding: 30px;
       border-radius: 12px;
-      text-align: center;
       box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-      animation: fadeIn 1s ease-in-out;
+      text-align: center;
+      max-width: 450px;
     }
     h1 {
+      font-size: 24px;
       color: #333;
+    }
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      color: #4caf50;
+      margin: 10px 0;
+    }
+    .old-price {
+      font-size: 16px;
+      color: #999;
+      text-decoration: line-through;
+      margin-right: 8px;
+    }
+    .upi {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #555;
+    }
+    .qr {
+      margin: 20px 0;
     }
     .btn {
       display: inline-block;
-      margin-top: 15px;
-      padding: 12px 20px;
+      margin: 10px 5px;
+      padding: 12px 18px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -41,47 +62,39 @@
     .btn:hover {
       background: #388e3c;
     }
-    .old-price {
-      text-decoration: line-through;
-      color: red;
-      margin-right: 8px;
-    }
-    .new-price {
-      font-weight: bold;
-      color: green;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1 id="planTitle">Payment</h1>
-    <p id="planPrice"></p>
-    <p>Scan the QR or click below to pay via UPI:</p>
-    <a id="upiLink" class="btn" href="#">Pay with UPI App</a>
-    <br><br>
+    <h1>Complete Your Payment</h1>
+    <p id="planText"></p>
+    <div class="upi">
+      <p><b>Pay to UPI ID:</b> meghsavla09@okhdfcbank</p>
+      <p><b>Name:</b> Megh Savla</p>
+    </div>
+    <div class="qr">
+      <img id="qrCode" src="" alt="UPI QR Code" width="200">
+    </div>
     <a class="btn" href="success.html">I Have Paid</a>
   </div>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const plan = urlParams.get("plan");
-    const planTitle = document.getElementById("planTitle");
-    const planPrice = document.getElementById("planPrice");
-    const upiLink = document.getElementById("upiLink");
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get("plan");
+    const planText = document.getElementById("planText");
+    const qrCode = document.getElementById("qrCode");
+    let upiLink = "";
 
     if (plan === "1month") {
-      planTitle.innerText = "1 Month Plan";
-      planPrice.innerHTML = "<span class='old-price'>₹6000</span> <span class='new-price'>₹5000</span>";
-      upiLink.href = "upi://pay?pa=yourupi@upi&pn=YourName&am=5000&cu=INR";
+      planText.innerHTML = `<span class="old-price">₹6000</span> <span class="price">₹5000</span> / 1 Month`;
+      upiLink = `upi://pay?pa=meghsavla09@okhdfcbank&pn=Megh%20Savla&am=5000&cu=INR`;
     } else if (plan === "3months") {
-      planTitle.innerText = "3 Months Plan";
-      planPrice.innerHTML = "<span class='old-price'>₹18000</span> <span class='new-price'>₹12500</span>";
-      upiLink.href = "upi://pay?pa=yourupi@upi&pn=YourName&am=12500&cu=INR";
+      planText.innerHTML = `<span class="old-price">₹18000</span> <span class="price">₹12500</span> / 3 Months`;
+      upiLink = `upi://pay?pa=meghsavla09@okhdfcbank&pn=Megh%20Savla&am=12500&cu=INR`;
     }
+
+    // Generate QR code using API
+    qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(upiLink)}&size=200x200`;
   </script>
 </body>
 </html>

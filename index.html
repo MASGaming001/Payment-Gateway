@@ -7,68 +7,73 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #e0f7fa, #f9fbe7);
-      margin:0; padding:20px;
-      min-height:100vh;
-      animation: fadeIn 1s ease-in-out;
+      background: linear-gradient(135deg, #ece9e6, #ffffff);
+      margin: 0;
+      padding: 20px;
+      animation: fadeIn 1s ease-in;
     }
     @keyframes fadeIn {
-      from { opacity:0; }
-      to { opacity:1; }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     .container { max-width: 650px; margin: auto; }
-    .header { text-align:center; margin-bottom:20px; }
-    .header h2 { color:#222; }
+    .header { text-align: center; margin-bottom: 20px; }
+    .header h2 { color: #111; }
     .plan-btn {
-      width:100%;
-      background:white;
-      border:2px solid #ddd;
-      padding:15px;
-      margin:12px 0;
-      text-align:left;
-      border-radius:12px;
-      font-size:16px;
-      cursor:pointer;
-      position:relative;
-      transition: transform 0.2s, box-shadow 0.2s;
+      display: block;
+      width: 100%;
+      background: linear-gradient(90deg, #111, #444);
+      color: white;
+      padding: 15px;
+      margin: 10px 0;
+      text-align: center;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
     }
-    .plan-btn:hover {
-      transform: translateY(-3px);
-      box-shadow:0 6px 12px rgba(0,0,0,0.15);
-    }
-    .plan-price { font-size:20px; font-weight:bold; color:#000; }
-    .old-price { text-decoration: line-through; color:#999; margin-left:8px; font-size:15px; }
-    .discount { color:#2e7d32; font-weight:bold; margin-left:10px; font-size:14px; }
+    .plan-btn:hover { transform: scale(1.05); background: linear-gradient(90deg, #333, #000); }
     .pack {
-      background:white; padding:20px; border-radius:15px;
-      box-shadow:0 3px 10px rgba(0,0,0,0.1);
-      margin-top:20px; display:none; animation: slideIn 0.5s ease;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 20px;
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
     }
-    @keyframes slideIn {
-      from { transform: translateY(20px); opacity:0; }
-      to { transform: translateY(0); opacity:1; }
-    }
-    .price { font-size:28px; font-weight:bold; margin:8px 0; color:#111; }
+    .price { font-size: 26px; font-weight: bold; margin: 8px 0; color: #222; }
+    .old-price { text-decoration: line-through; color: #888; font-size: 16px; }
+    .discount { color: green; font-weight: bold; font-size: 14px; }
     .btn {
-      background:#000; color:white;
-      padding:12px 20px; border-radius:10px;
-      text-decoration:none; display:inline-block;
-      margin-top:10px; transition: background 0.3s;
+      background: black;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      transition: background 0.3s;
     }
-    .btn:hover { background:#333; }
-    .qr { margin-top:15px; text-align:center; }
+    .btn:hover { background: #444; }
+    .qr { margin-top: 15px; text-align:center; }
     .upi-details {
-      background:#f3f4f6; padding:10px; border-radius:10px;
-      margin-top:10px; font-size:14px;
+      background: #f3f4f6;
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-size: 14px;
     }
-    footer { text-align:center; font-size:12px; color:#555; margin-top:30px; }
-    .telegram {
-      display:block; text-align:center;
-      background:#0088cc; color:white; padding:12px 18px;
-      border-radius:8px; margin-top:20px; text-decoration:none;
-      font-weight:bold; transition: background 0.3s;
+    .note {
+      background: #fff8e6;
+      border: 1px solid #ffd27f;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 14px;
+      line-height: 1.5;
     }
-    .telegram:hover { background:#0077b6; }
+    footer { text-align: center; font-size: 12px; color: #888; margin-top: 30px; }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 </head>
@@ -76,45 +81,41 @@
   <div class="container">
     <div class="header">
       <h2>Subscribe & Pay via UPI</h2>
-      <p style="margin:0; font-size:14px; color:#666;">
-        Instant UPI payments to <span id="payeeName">Megh Savla</span>
-      </p>
+      <p style="margin:0; font-size:14px; color:#666;">Instant UPI payments to <span id="payeeName">Megh Savla</span></p>
     </div>
 
     <!-- Step 1: Choose Plan -->
     <div id="choosePlan">
-      <button class="plan-btn" onclick="showPlan(5000, '1 Month', 6000)">
-        <div class="plan-title">1 Month Plan</div>
-        <div class="plan-price">₹5,000 
-          <span class="old-price">₹6,000</span>
-          <span class="discount">(17% OFF)</span>
-        </div>
-      </button>
+      <button class="plan-btn" onclick="showPlan(5000, '1 Month', 6000)">₹5,000 – 1 Month 
+        <div class="old-price">₹6,000</div><div class="discount">Save 17%</div></button>
 
-      <button class="plan-btn" onclick="showPlan(12500, '3 Months', 18000)">
-        <div class="plan-title">3 Months Plan</div>
-        <div class="plan-price">₹12,500 
-          <span class="old-price">₹18,000</span>
-          <span class="discount">(31% OFF)</span>
-        </div>
-      </button>
+      <button class="plan-btn" onclick="showPlan(12500, '3 Months', 18000)">₹12,500 – 3 Months
+        <div class="old-price">₹18,000</div><div class="discount">Save 30%</div></button>
     </div>
 
     <!-- Step 2: Payment Details -->
     <div id="paymentBox" class="pack">
       <h3 id="planTitle"></h3>
       <div class="price" id="planPrice"></div>
-      <div id="oldPriceBox" style="font-size:16px; color:#999;"></div>
+      <div class="old-price" id="oldPrice"></div>
+      <div class="discount" id="discount"></div>
+
       <a id="upiLink" class="btn">Pay with UPI App</a>
       <div class="qr"><canvas id="qrCanvas"></canvas></div>
+
       <div class="upi-details">
         <b>UPI ID:</b> <span id="upiId">meghsavla09@okhdfcbank</span><br/>
         <b>Name:</b> <span id="upiName">Megh Savla</span>
       </div>
-      <a href="https://t.me/+HgkA3SvtkqA1MzRl" target="_blank" class="telegram">
-        ✅ After Payment, Click Here to Request Telegram Group Access
-      </a>
-      <button class="plan-btn" style="background:#555; color:white; text-align:center;" onclick="goBack()">← Back</button>
+
+      <!-- NOTE after payment -->
+      <div class="note">
+        ✅ After completing payment, please share the payment screenshot on <b>WhatsApp: 9673840469</b> for verification.<br/><br/>
+        📩 Once verified, you can join our private group here:<br/>
+        👉 <a href="https://t.me/+HgkA3SvtkqA1MzRl" target="_blank">Join Telegram Group</a>
+      </div>
+
+      <button class="plan-btn" style="background:#555;" onclick="goBack()">← Back</button>
     </div>
 
     <footer>
@@ -124,8 +125,8 @@
 
   <script>
     // 👉 Replace with your details
-    const UPI_ID   = "meghsavla09@okhdfcbank";   // e.g., meghsavla@okaxis
-    const PAYEE    = "Megh Savla";          // Your display name
+    const UPI_ID   = "meghsavla09@okhdfcbank";
+    const PAYEE    = "Megh Savla";
 
     // Build UPI payment link
     function upiLink(amount, note) {
@@ -134,21 +135,16 @@
     }
 
     // Show selected plan
-    function showPlan(amount, label, oldPrice) {
+    function showPlan(amount, label, original) {
       document.getElementById("choosePlan").style.display = "none";
       document.getElementById("paymentBox").style.display = "block";
       document.getElementById("planTitle").innerText = label + " Plan";
       document.getElementById("planPrice").innerText = "₹" + amount.toLocaleString("en-IN");
-
-      // Show old price with discount
-      const discountPercent = Math.round(((oldPrice - amount) / oldPrice) * 100);
-      document.getElementById("oldPriceBox").innerHTML =
-        `<span style="text-decoration:line-through;">₹${oldPrice.toLocaleString("en-IN")}</span> 
-         <span style="color:#2e7d32; font-weight:bold;"> (You Save ${discountPercent}%!)</span>`;
+      document.getElementById("oldPrice").innerText = "Original Price: ₹" + original.toLocaleString("en-IN");
+      document.getElementById("discount").innerText = "You Save: " + Math.round(((original-amount)/original)*100) + "%";
 
       const url = upiLink(amount, "Subscription - " + label);
       document.getElementById("upiLink").href = url;
-
       new QRious({ element: document.getElementById("qrCanvas"), value: url, size: 180 });
 
       document.getElementById("upiId").innerText = UPI_ID;
@@ -167,3 +163,4 @@
   </script>
 </body>
 </html>
+
